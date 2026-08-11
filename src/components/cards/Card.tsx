@@ -3,13 +3,24 @@ import { type ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
-  title: string;
+  className?: string;
+  title?: string;
   childrenClassName?: string;
 };
 
-export default function Card({ children, title, childrenClassName }: Props) {
+export default function Card({
+  children,
+  className,
+  title,
+  childrenClassName,
+}: Props) {
   return (
-    <div className="from-card to-card/60 flex flex-col gap-4 rounded-xl bg-linear-to-br p-4 shadow-md">
+    <div
+      className={clsx(
+        "from-card to-card/60 flex flex-col gap-4 rounded-xl bg-linear-to-br p-4 shadow-md",
+        className,
+      )}
+    >
       <h2 className="text-2xl font-semibold">{title}</h2>
       <div
         className={clsx(
