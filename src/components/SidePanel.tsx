@@ -1,18 +1,33 @@
 import { getAirPollution } from "@/api";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Suspense } from "react";
+import { Suspense, type Dispatch, type SetStateAction } from "react";
 import type { Coords } from "../types";
 import Card from "./cards/Card";
 import { Slider } from "./ui/slider";
 import clsx from "clsx";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import Information from "/src/assets/information.svg?react";
+import Chevron from "/src/assets/ChevronLeft.svg?react";
 
 type Props = {
   coords: Coords;
+  isSidePanelOpen: boolean;
+  setIsSidePanelOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function SidePanel(props: Props) {
+  const { isSidePanelOpen, setIsSidePanelOpen } = props;
+
   return (
-    <div className="bg-sidebar fixed top-0 right-0 z-1001 h-screen w-90 overflow-y-scroll px-4 py-8 shadow-md">
+    <div
+      className={clsx(
+        "bg-sidebar fixed top-0 right-0 z-1000 h-screen w-90 overflow-y-scroll px-4 py-8 shadow-md transition-transform duration-300",
+        isSidePanelOpen ? "translate-x-0" : "translate-x-full",
+      )}
+    >
+      <button onClick={() => setIsSidePanelOpen(false)}>
+        <Chevron className="size-8 invert" />
+      </button>
       <Suspense>
         <AirPollution {...props} />
       </Suspense>
@@ -30,11 +45,27 @@ function AirPollution({ coords }: Props) {
     <div className="flex flex-col gap-4">
       <h2 className="text-2xl font-semibold">Качество воздуха</h2>
       <p className="text-5xl font-semibold">{data.list[0].main.aqi}</p>
-      <h2 className="text-2xl font-semibold">AQI</h2>
+      <div className="flex items-center justify-center gap-2">
+        <h2 className="text-2xl font-semibold">AQI</h2>
+        <Tooltip>
+          <TooltipTrigger>
+            <Information className="size-4 invert" />
+          </TooltipTrigger>
+          <TooltipContent className="max-w-xs">
+            <p>
+              Индекс качества воздуха. Возможные значения: 1, 2, 3, 4, 5. Где 1
+              = Хорошее, 2 = Удовлетворительное, 3 = Умеренное, 4 = Плохое, 5 =
+              Очень плохое.
+            </p>
+          </TooltipContent>
+        </Tooltip>
+      </div>
       {Object.entries(data.list[0].components).map(([key, value]) => {
         const pollutant =
           airQualityRanges[key.toUpperCase() as keyof typeof airQualityRanges];
+
         const max = Math.max(pollutant["Very Poor"].min, value);
+
         const currentLevel = (() => {
           for (const [level, range] of Object.entries(pollutant)) {
             if (
@@ -70,7 +101,19 @@ function AirPollution({ coords }: Props) {
             className="from-sidebar-accent to-sidebar-accent/60 gap-0! transition-transform duration-300 hover:scale-105"
           >
             <div className="flex justify-between">
-              <span className="text-lg font-bold capitalize">{key}</span>
+              <div className="flex items-center gap-2">
+                <span className="text-lg font-bold capitalize">{key}</span>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Information className="size-4 invert" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>
+                      {pollutantNameMapping[key.toUpperCase() as Pollutant]}
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
               <span className="text-lg font-semibold">{value}</span>
             </div>
             <Slider min={0} max={max} value={[value]} disabled />
