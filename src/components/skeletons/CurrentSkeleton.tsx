@@ -16,7 +16,7 @@ export default function CurrentSkeleton() {
         <p className="text-xl">Местное время:</p>
         <Skeleton className="h-10 w-20" />
       </div>
-      <div className="grid grid-cols-3 justify-between gap-4">
+      <div className="grid w-full grid-cols-3">
         <div className="grid justify-items-center gap-1">
           <p className="text-gray-500">Чувствуется</p>
           <Skeleton className="h-6 w-10" />

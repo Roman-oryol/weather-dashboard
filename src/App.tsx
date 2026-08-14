@@ -17,6 +17,7 @@ import AdditionalInfoSkeleton from "./components/skeletons/AdditionallInfoSkelet
 import SidePanel from "./components/SidePanel";
 import Hamburger from "/src/assets/hamburger.svg?react";
 import MobileHeader from "./components/MobileHeader";
+import LightDarkToggle from "./components/LightDarkToggle";
 
 function App() {
   const [coordinates, setCoordinates] = useState<Coords>({
@@ -47,24 +48,29 @@ function App() {
       <MobileHeader setIsSidePanelOpen={setIsSidePanelOpen} />
       <div className="xs:pt-8 flex w-full flex-col gap-8 p-8 pt-2 lg:w-[calc(100dvw-var(--sidebar-width))] 2xl:h-screen 2xl:min-h-280">
         <div className="xs:flex-row flex flex-col gap-x-6 gap-y-4 md:items-center">
-          <div className="flex flex-col gap-4 md:flex-row">
+          <div className="lg2:flex-row flex flex-col gap-4">
             <h2 className="text-left text-xl font-semibold whitespace-nowrap">
               Популярные города:
             </h2>
             <LocationDropdown location={location} setLocation={setLocation} />
           </div>
-          <div className="flex flex-col gap-4 md:flex-row">
-            <h2 className="text-left text-xl font-semibold whitespace-nowrap md:text-right">
+          <div className="lg2:flex-row flex flex-col gap-4">
+            <h2 className="lg2:text-right text-left text-xl font-semibold whitespace-nowrap">
               Тип карты
             </h2>
             <MapTypeDropdown mapType={mapType} setMapType={setMapType} />
           </div>
-          <button
-            className="xs:block ml-auto hidden"
-            onClick={() => setIsSidePanelOpen(true)}
-          >
-            <Hamburger className="size-6 invert lg:hidden" />
-          </button>
+          <div className="lg2:self-center ml-auto flex items-center gap-x-6 self-start">
+            <div className="xs:block hidden">
+              <LightDarkToggle className="ml-auto" />
+            </div>
+            <button
+              className="xs:block hidden"
+              onClick={() => setIsSidePanelOpen(true)}
+            >
+              <Hamburger className="size-6 lg:hidden" />
+            </button>
+          </div>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:min-h-0 2xl:flex-1 2xl:grid-cols-4 2xl:grid-rows-4">
           <div className="relative order-1 col-span-1 h-120 md:col-span-2 2xl:col-span-4 2xl:row-span-2 2xl:h-auto">
