@@ -25,10 +25,13 @@ export default function AdditionallInfo({ coords }: Props) {
   });
 
   return (
-    <Card title="Дополнительная информация" childrenClassName="grid gap-8">
+    <Card
+      title="Дополнительная информация"
+      childrenClassName="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2"
+    >
       {rows.map(({ label, value, Icon }) => (
-        <div className="flex justify-between" key={value}>
-          <div className="flex items-center gap-4">
+        <div className="flex items-center justify-between" key={value}>
+          <div className="grid grid-cols-[1fr_auto] gap-4 text-left">
             <span className="text-gray-500">{label}</span>
             <Icon className="size-8 invert" />
           </div>

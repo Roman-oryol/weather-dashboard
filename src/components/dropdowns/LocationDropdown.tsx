@@ -20,7 +20,7 @@ export default function LocationDropdown({ location, setLocation }: Props) {
       value={selectedLocation?.ru}
       onValueChange={(value) => value && setLocation(value)}
     >
-      <SelectTrigger className="w-full max-w-48">
+      <SelectTrigger className="w-full md:max-w-48">
         <SelectValue
           placeholder={location === "custom" && "Пользовательский"}
         />

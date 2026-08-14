@@ -15,7 +15,11 @@ export default function DailyForecast({ coords }: Props) {
   });
 
   return (
-    <Card title="Прогноз на 8 дней" childrenClassName="flex flex-col gap-4">
+    <Card
+      title="Прогноз на 8 дней"
+
+      childrenClassName="flex flex-col gap-4 md:justify-between"
+    >
       {data.daily.map((day) => (
         <div className="flex items-center justify-between" key={day.dt}>
           <p className="w-9">

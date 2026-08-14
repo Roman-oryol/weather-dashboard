@@ -17,7 +17,7 @@ export default function Card({
   return (
     <div
       className={clsx(
-        "from-card to-card/60 flex flex-col gap-4 rounded-xl bg-linear-to-br p-4 shadow-md",
+        "from-card to-card/60 flex flex-col gap-4 rounded-xl bg-linear-to-br p-4 shadow-md md:h-full",
         className,
       )}
     >
@@ -25,7 +25,7 @@ export default function Card({
       <div
         className={clsx(
           childrenClassName,
-          "animate-[fade-in_1s_ease-out_forwards]",
+          "animate-[fade-in_1s_ease-out_forwards] md:flex-1",
         )}
       >
         {children}

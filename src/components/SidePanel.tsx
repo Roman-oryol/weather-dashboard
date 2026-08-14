@@ -22,12 +22,12 @@ export default function SidePanel(props: Props) {
   return (
     <div
       className={clsx(
-        "bg-sidebar fixed top-0 right-0 z-1000 h-screen w-90 overflow-y-scroll px-4 py-8 shadow-md transition-transform duration-300",
+        "bg-sidebar fixed top-0 right-0 z-1001 h-screen w-(--sidebar-width) overflow-y-scroll px-4 py-8 shadow-md transition-transform duration-300 lg:translate-x-0!",
         isSidePanelOpen ? "translate-x-0" : "translate-x-full",
       )}
     >
       <button onClick={() => setIsSidePanelOpen(false)}>
-        <Chevron className="size-8 invert" />
+        <Chevron className="size-8 invert lg:hidden" />
       </button>
       <Suspense fallback={<SidePanelSkeleton />}>
         <AirPollution {...props} />
@@ -44,8 +44,10 @@ function AirPollution({ coords }: Props) {
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-2xl font-semibold">Качество воздуха</h2>
-      <p className="text-5xl font-semibold">{data.list[0].main.aqi}</p>
+      <h2 className="text-center text-2xl font-semibold">Качество воздуха</h2>
+      <p className="text-center text-5xl font-semibold">
+        {data.list[0].main.aqi}
+      </p>
       <div className="flex items-center justify-center gap-2">
         <h2 className="text-2xl font-semibold">AQI</h2>
         <Tooltip>
@@ -125,6 +127,7 @@ function AirPollution({ coords }: Props) {
             <div className="flex justify-between">
               {Object.keys(pollutant).map((quality) => (
                 <span
+                  key={quality}
                   className={clsx(
                     "rounded-md px-2 py-1 text-xs font-medium",
                     quality === currentLevel

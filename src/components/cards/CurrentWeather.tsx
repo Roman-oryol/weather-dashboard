@@ -15,7 +15,10 @@ export default function CurrentWeather({ coords }: Props) {
   });
 
   return (
-    <Card title="Сейчас" childrenClassName="flex flex-col items-center gap-4">
+    <Card
+      title="Сейчас"
+      childrenClassName="flex flex-col items-center gap-4 md:justify-between"
+    >
       <div className="flex flex-col items-center gap-2">
         <h2 className="text-center text-6xl font-semibold">
           {Math.round(data.current.temp)} °C
@@ -36,7 +39,7 @@ export default function CurrentWeather({ coords }: Props) {
           }).format(new Date(data.current.dt * 1000))}
         </h3>
       </div>
-      <div className="grid grid-cols-3 justify-between gap-4">
+      <div className="grid w-full grid-cols-3">
         <div className="grid justify-items-center gap-1">
           <p className="text-gray-500">Чувствуется</p>
           <p>{Math.round(data.current.feels_like)} °C</p>
@@ -46,7 +49,7 @@ export default function CurrentWeather({ coords }: Props) {
           <p>{Math.round(data.current.humidity)} %</p>
         </div>
         <div className="grid justify-items-center gap-1">
-          <p className="text-gray-500">Скорость ветра</p>
+          <p className="text-gray-500">Ветер</p>
           <p>{Math.round(data.current.wind_speed)} м/с</p>
         </div>
       </div>

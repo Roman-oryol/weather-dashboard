@@ -18,7 +18,7 @@ export default function MapTypeDropdown({ mapType, setMapType }: Props) {
       value={mapTypes.find(({ value }) => value === mapType)?.label}
       onValueChange={(value) => value && setMapType(value)}
     >
-      <SelectTrigger className="w-full max-w-48">
+      <SelectTrigger className="w-full md:max-w-48">
         <SelectValue placeholder="Город" />
       </SelectTrigger>
       <SelectContent>

@@ -20,16 +20,19 @@ export default function HourlyForecast({ coords }: Props) {
       title="Прогноз на 48 часов"
     >
       {data.hourly.map((hour) => (
-        <div className="mb-2 flex flex-col items-center gap-2" key={hour.dt}>
-          <p>
+        <div
+          className="mb-2 flex flex-col items-center gap-2 2xl:justify-between"
+          key={hour.dt}
+        >
+          <p className="2xl:scale-110">
             {new Date(hour.dt * 1000).toLocaleTimeString(undefined, {
               hour: "2-digit",
               minute: "2-digit",
               hour12: false,
             })}
           </p>
-          <WeatherIcon src={hour.weather[0].icon} />
-          <p>{Math.round(hour.temp)} °C</p>
+          <WeatherIcon className="2xl:size-10" src={hour.weather[0].icon} />
+          <p className="2xl:scale-110">{Math.round(hour.temp)} °C</p>
         </div>
       ))}
     </Card>
